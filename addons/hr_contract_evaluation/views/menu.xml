@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Menu cha: nằm dưới Nhân viên (Employees) -->
+    <menuitem
+        id="menu_hr_contract_evaluation_root"
+        name="Đánh giá hợp đồng"
+        parent="hr.menu_hr_root"
+        sequence="99"/>
+
+    <!-- Menu con -->
+    <menuitem
+        id="menu_hr_contract_evaluation_list"
+        name="Phiếu đánh giá"
+        parent="menu_hr_contract_evaluation_root"
+        action="action_hr_contract_evaluation"
+        sequence="1"/>
+
+</odoo>

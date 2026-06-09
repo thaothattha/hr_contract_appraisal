@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== FORM VIEW ==================== -->
+    <record id="view_hr_contract_evaluation_form" model="ir.ui.view">
+        <field name="name">hr.contract.evaluation.form</field>
+        <field name="model">hr.contract.evaluation</field>
+        <field name="arch" type="xml">
+            <form string="Phiếu đánh giá hợp đồng">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Thông tin nhân viên">
+                            <field name="employee_id"/>
+                            <field name="contract_id"/>
+                            <field name="evaluation_date"/>
+                        </group>
+                        <group string="Điểm đánh giá">
+                            <field name="score_work" widget="priority"/>
+                            <field name="score_attitude" widget="priority"/>
+                            <field name="final_recommendation"/>
+                        </group>
+                    </group>
+
+                    <group string="Nhận xét chi tiết">
+                        <field name="note" nolabel="1" placeholder="Nhập nhận xét chi tiết về nhân viên..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================== LIST VIEW ==================== -->
+    <record id="view_hr_contract_evaluation_list" model="ir.ui.view">
+        <field name="name">hr.contract.evaluation.list</field>
+        <field name="model">hr.contract.evaluation</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách phiếu đánh giá">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <field name="evaluation_date"/>
+                <field name="score_work"/>
+                <field name="score_attitude"/>
+                <field name="final_recommendation"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH VIEW ==================== -->
+    <record id="view_hr_contract_evaluation_search" model="ir.ui.view">
+        <field name="name">hr.contract.evaluation.search</field>
+        <field name="model">hr.contract.evaluation</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm phiếu đánh giá">
+                <field name="name" string="Mã phiếu"/>
+                <field name="employee_id" string="Nhân viên"/>
+                <field name="contract_id" string="Hợp đồng"/>
+                <separator/>
+                <filter name="filter_renew"
+                        string="Gia hạn"
+                        domain="[('final_recommendation', '=', 'renew')]"/>
+                <filter name="filter_probation"
+                        string="Thử thách thêm"
+                        domain="[('final_recommendation', '=', 'probation')]"/>
+                <filter name="filter_terminate"
+                        string="Chấm dứt hợp đồng"
+                        domain="[('final_recommendation', '=', 'terminate')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter name="group_employee"
+                            string="Nhân viên"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter name="group_recommendation"
+                            string="Kiến nghị"
+                            context="{'group_by': 'final_recommendation'}"/>
+                    <filter name="group_date"
+                            string="Ngày đánh giá"
+                            context="{'group_by': 'evaluation_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ==================== ACTION ==================== -->
+    <record id="action_hr_contract_evaluation" model="ir.actions.act_window">
+        <field name="name">Phiếu đánh giá hợp đồng</field>
+        <field name="res_model">hr.contract.evaluation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_hr_contract_evaluation_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo phiếu đánh giá hợp đồng đầu tiên
+            </p>
+            <p>
+                Đánh giá hiệu suất và thái độ nhân viên để đưa ra kiến nghị gia hạn hoặc chấm dứt hợp đồng.
+            </p>
+        </field>
+    </record>
+
+</odoo>
